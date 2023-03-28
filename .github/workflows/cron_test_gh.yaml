@@ -15,6 +15,6 @@ jobs:
       xobjects_location: 'xsuite:main'
       xdeps_location: 'xsuite:main'
       xpart_location: 'xsuite:main'
-      xtrack_location: 'xsuite:main'
+      xtrack_location: 'szymonlopaciuk:main'
       xfields_location: 'xsuite:main'
       xmask_location: 'xsuite:main'
