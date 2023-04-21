@@ -287,7 +287,7 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 html_theme = 'sphinx_rtd_theme'
-html_logo = "figures/xsuite-blue-long.png"
+html_logo = "figures/xsuite-alpha-long.png"
 html_theme_options = {
     'logo_only': True,
     'display_version': False,
