@@ -24,6 +24,10 @@ on:
       xmask_location:
         required: true
         type: string
+      precompile_kernels:
+        required: false
+        default: false
+        type: boolean
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 # The jobs are all run in independent environments. Here we will run a separate job
@@ -90,6 +94,11 @@ jobs:
             "https://github.com/${user}/${project}.git"
           pip install -e "${GITHUB_WORKSPACE}/${project}[tests]"
         done
+    - name: Precompile kernels
+      if: ${{ inputs.precompile_kernels == true }}
+      run: |
+        pip install -e "${GITHUB_WORKSPACE}/xsuite[tests]"
+        xsuite-prebuild
     - name: Print versions
       run: conda list
     - name: Run tests (${{ matrix.test-suite }})
