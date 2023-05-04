@@ -28,3 +28,4 @@ jobs:
       xfields_location: 'xsuite:main'
       xmask_location: 'xsuite:main'
       precompile_kernels: true
+      xobjects_test_contexts: "ContextCpu"
