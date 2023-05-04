@@ -94,6 +94,11 @@ jobs:
             "https://github.com/${user}/${project}.git"
           pip install -e "${GITHUB_WORKSPACE}/${project}[tests]"
         done
+    - name: Checkout xsuite (needed to precompile kernels)
+      if: ${{ inputs.precompile_kernels == true }}
+      uses: actions/checkout@v3
+      with:
+        path: 'xsuite'
     - name: Precompile kernels
       if: ${{ inputs.precompile_kernels == true }}
       run: |
