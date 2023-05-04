@@ -34,6 +34,7 @@ on:
         required: true
       precompile_kernels:
         description: 'precompile kernels?'
+        type: boolean
         default: false
         required: true
 
