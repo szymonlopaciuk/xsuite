@@ -37,6 +37,10 @@ on:
         type: boolean
         default: false
         required: true
+      xobjects_test_contexts:
+        description: xobjects test contexts
+        default: "ContextCpu;ContextCpu:auto"
+        required: true
 
 # This workflow calls the test_gh.yaml workflow passing the specified
 # branches as inputs
