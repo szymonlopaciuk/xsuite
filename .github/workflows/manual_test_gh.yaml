@@ -32,6 +32,10 @@ on:
         description: 'xmask branch'
         default: 'xsuite:main'
         required: true
+      precompile_kernels:
+        description: 'precompile kernels?'
+        default: false
+        required: true
 
 # This workflow calls the test_gh.yaml workflow passing the specified
 # branches as inputs
@@ -45,3 +49,4 @@ jobs:
       xtrack_location: ${{ inputs.xtrack_location }}
       xfields_location: ${{ inputs.xfields_location }}
       xmask_location: ${{ inputs.xmask_location }}
+      precompile_kernels: ${{ inputs.precompile_kernels }}
