@@ -97,7 +97,7 @@ jobs:
     - name: Precompile kernels
       if: ${{ inputs.precompile_kernels == true }}
       run: |
-        pip install -e "${GITHUB_WORKSPACE}/xsuite[tests]"
+        pip install -e "${GITHUB_WORKSPACE}/xsuite"
         xsuite-prebuild
     - name: Print versions
       run: conda list
