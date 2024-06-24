@@ -76,6 +76,9 @@ RUN if [[ "$with_gpu" == true ]]; then \
         && pip install ./gpyfft; \
     fi
 
+# Setup paths for Xboinc, simulating EOS
+RUN mkdir -p /afs/cern.ch/user/s/sixtadm && mkdir -p /eos/user/s/sixtadm
+
 # Install all the Xsuite packages in the required versions
 WORKDIR /opt/xsuite
 COPY ./ /opt/xsuite/xsuite/
