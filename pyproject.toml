@@ -1,16 +1,19 @@
 [build-system]
 requires = [
-    'setuptools>=64',
-    'setuptools-scm[toml]>=8',
-    "xtrack==0.86.1",
-    "xfields==0.24.0",
-    "xcoll==0.6.2",
-    "xobjects==0.5.0",
-    "xdeps==0.10.5",
-    "xpart==0.23.0",
-    "numpy<2.0",
+    'hatchling',
+    'hatch-vcs',
+    'xtrack==0.86.1',
+    'xfields==0.24.0',
+    'xcoll==0.6.2',
+    'xobjects==0.5.0',
+    'xdeps==0.10.5',
+    'xpart==0.23.0',
+    'numpy<2.0',
 ]
-build-backend = 'setuptools.build_meta'
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
 
 [project]
 name = "xsuite"
@@ -34,6 +37,10 @@ dependencies = [
 ]
 dynamic = ["version"]
 
+[tool.setuptools.packages.find]
+where = ["xsuite/"]
+include = ["xsuite", "xsuite.lib"]
+
 [project.urls]
 Download = "https://pypi.python.org/pypi/xsuite"
 "Bug Tracker" = "https://github.com/xsuite/xsuite/issues"
@@ -43,29 +50,22 @@ Documentation = 'https://xsuite.readthedocs.io/'
 [project.scripts]
 xsuite-prebuild = "xsuite.cli:main"
 
-[tool.setuptools_scm]
-# empty for default configuration
+[tool.hatch.build.targets.sdist]
+include = [
+    'xsuite/*.py',
+    'xsuite/lib/*.py',
+]
 
-# The very non-obvious way files can be included in either sdist or bdist with
-# setuptools. We need to list the file in:
-# - MANIFEST.in if we want it in both sdist and bdist,
-# - package_data and exclude it from the manifest if we want it in bdist only,
-# - exclude_package_data if we want it in sdist only,
-# - nowhere if we don't want to package them.
-# Thanks to this setup an sdist can be build without the binary files, and a
-# bdist can be build including them following the standard PEP 517 procedure
-# using the `build` command.
-[tool.setuptools]
-packages = ["xsuite"]
-include-package-data = true
-
-[tool.setuptools.package-data]
-xsuite = [
+[tool.hatch.build.targets.wheel]
+artefacts = [
     'lib/*.so',
     'lib/*.dylib',
     'lib/*.dll',
     'lib/*.json',
 ]
+
+[tool.hatch.build.hooks.custom]
+path = 'hatch_build.py'
 
 [tool.cibuildwheel]
 skip = [
