@@ -16,6 +16,7 @@ ARG xmask_branch=xsuite:main
 ARG xcoll_branch=xsuite:main
 ARG xwakes_branch=xsuite:main
 ARG xsuite_branch=xsuite:main
+ARG cuda_version=""
 ARG install_mpi=false
 ARG with_gpu
 
@@ -69,7 +70,10 @@ RUN pip install --no-cache-dir cython gitpython pytest-html \
     && rm -rf /var/cache/yum
 
 RUN if [[ "$with_gpu" == true ]]; then \
-        mamba install cupy cudatoolkit ocl-icd-system clinfo clfft \
+        if [[ -n "$cuda_version" ]]; then \
+            mamba install -y cuda-version=${cuda_version} cuda-cudart cuda-nvrtc cupy; \
+        fi \
+        && mamba install ocl-icd-system clinfo clfft \
         && mamba clean -afy \
         && pip install --no-cache-dir pyopencl mako \
         && git clone --depth 1 https://github.com/geggo/gpyfft.git \
