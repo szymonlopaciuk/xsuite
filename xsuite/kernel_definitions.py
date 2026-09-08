@@ -32,7 +32,9 @@ TPSA_MONITOR_CLASSES = [xt.MultiElementMonitor]
 kernel_definitions = [
     ('non_tracking_kernels', {
         'config': {},
-        'classes': [],
+        # Tracker compilation needs a non-empty ElementRef union even though this
+        # kernel only provides auxiliary kernels.
+        'classes': [xt.Marker],
         'extra_classes': (
             [xt.Particles] + NON_TRACKING_ELEMENTS + XFIELDS_NON_TRACKING_ELEMENTS
             + SCALAR_MONITOR_CLASSES
