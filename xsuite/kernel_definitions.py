@@ -25,39 +25,44 @@ BASE_CONFIG = {
     'XTRACK_GLOBAL_XY_LIMIT': 1.0,
 }
 
+SCALAR_MONITOR_CLASSES = [xt.ParticlesMonitor, xt.MultiElementMonitor]
+TPSA_MONITOR_CLASSES = [xt.MultiElementMonitor]
+
 # These are enumerated in order specified below: the highest priority at the top
 kernel_definitions = [
     ('non_tracking_kernels', {
         'config': {},
         'classes': [],
-        'extra_classes': [xt.Particles] + NON_TRACKING_ELEMENTS + XFIELDS_NON_TRACKING_ELEMENTS,
+        'extra_classes': (
+            [xt.Particles] + NON_TRACKING_ELEMENTS + XFIELDS_NON_TRACKING_ELEMENTS
+            + SCALAR_MONITOR_CLASSES
+        ),
     }),
     ('default_no_config', {
         'config': {},
         'classes': XTRACK_ELEMENTS + DEFAULT_XFIELDS_ELEMENTS + DEFAULT_XCOLL_ELEMENTS,
-        'extra_classes': [xt.Particles] + EXTRA_XCOLL_ELEMENTS,
+        'extra_classes': [xt.Particles] + EXTRA_XCOLL_ELEMENTS + SCALAR_MONITOR_CLASSES,
     }),
     ('default_base_config', {
         'config': BASE_CONFIG,
         'classes': XTRACK_ELEMENTS + DEFAULT_XFIELDS_ELEMENTS + DEFAULT_XCOLL_ELEMENTS,
-        'extra_classes': [xt.Particles] + EXTRA_XCOLL_ELEMENTS,
+        'extra_classes': [xt.Particles] + EXTRA_XCOLL_ELEMENTS + SCALAR_MONITOR_CLASSES,
     }),
     ('tpsa_base_config', {
         'config': {**BASE_CONFIG, 'XTRACK_TPSA_TRACK': True},
         'classes': TPSA_SUPPORTED_ELEMENTS,
-        'extra_classes': [xt.MultiSetter],
-        'include_monitors': True,
+        'extra_classes': [xt.MultiSetter] + TPSA_MONITOR_CLASSES,
     }),
     ('all_with_synrad', {
         'config': {**BASE_CONFIG, 'XTRACK_MULTIPOLE_NO_SYNRAD': False},
         'classes': ONLY_XTRACK_ELEMENTS + DEFAULT_XFIELDS_ELEMENTS + DEFAULT_XCOLL_ELEMENTS,
-        'extra_classes': [xt.Particles],
+        'extra_classes': [xt.Particles] + SCALAR_MONITOR_CLASSES,
     }),
     ('all_with_radiative', {
         'config': {**BASE_CONFIG, 'XTRACK_MULTIPOLE_NO_SYNRAD': False,
                    'XFIELDS_BB3D_NO_BEAMSTR': False, 'XFIELDS_BB3D_NO_BHABHA': False},
         'classes': XTRACK_ELEMENTS + DEFAULT_XFIELDS_ELEMENTS + DEFAULT_XCOLL_ELEMENTS,
-        'extra_classes': [xt.Particles],
+        'extra_classes': [xt.Particles] + SCALAR_MONITOR_CLASSES,
     }),
 ]
 
